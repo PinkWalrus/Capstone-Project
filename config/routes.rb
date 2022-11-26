@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  resources :invoices
+  resources :product_carts
+  resources :products
+  resources :carts
+  resources :users
   get '/hello', to: 'application#hello_world'
 
   get '*path',
