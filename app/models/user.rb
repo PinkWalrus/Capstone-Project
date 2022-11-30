@@ -4,5 +4,5 @@ class User < ApplicationRecord
     has_many :invoices
     has_one :cart
 
-    validates :email, presence: true
+    validates :email, presence: true, uniqueness: true
 end

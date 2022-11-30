@@ -27,6 +27,20 @@ function Signup() {
         setUserData(stateCopy)
     }
 
+    // submit the form data
+    const handleFormSubmit = () => {
+        const config = {
+            method: "POST",
+            headers: {"Content-Type": "application/json",},
+            body: JSON.stringify(userData)
+        }
+
+        fetch("/signup", config)
+            .then(resp => resp.json())
+            .then(user => console.log(user))
+            .catch(err => console.log(err))
+    }
+
     return (
         <MDBContainer fluid>
     
@@ -57,7 +71,7 @@ function Signup() {
                     <MDBInput label='Repeat your password' id='form4' type='password' value={userData.password_confirmation} name='password_confirmation' onChange={handleInputChange}/>
                   </div>
     
-                  <MDBBtn className='mb-4' size='lg'>Register</MDBBtn>
+                  <MDBBtn className='mb-4' size='lg' onClick={handleFormSubmit}>Register</MDBBtn>
     
                 </MDBCol>
     
