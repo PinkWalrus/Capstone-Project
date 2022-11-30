@@ -1,8 +1,18 @@
 class UsersController < ApplicationController
     # /sign up
     def create
-        user = User.create(user_params)
-        binding.pry
+        # create a user
+        user = User.create!(user_params)
+        # if user was created
+        if user && user.valid?
+            # set our session user id
+            session[:user_id] = user.id
+            # render user as json with status of created
+            render json: user, status: :created
+        # else - render errors with status of unprocessable_entity
+        else
+            render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
+        end
     end
 
     def show

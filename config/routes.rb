@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :products
   resources :carts
   resources :users
-  # get '/hello', to: 'application#hello_world'
+  get '/hello', to: 'application#hello_world'
 
   get '/me', to: 'users#show'
   post '/signup', to: 'users#create'
