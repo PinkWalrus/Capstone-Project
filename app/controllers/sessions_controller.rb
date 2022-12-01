@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
     # /login
     def create
-       binding.pry
+        binding.pry
     end
 
     # /logout

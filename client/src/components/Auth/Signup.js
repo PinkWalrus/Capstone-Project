@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   MDBBtn,
   MDBContainer,
@@ -19,6 +20,7 @@ function Signup() {
         password: "",
         password_confirmation: ""
     })
+    const navigate = useNavigate();
 
     // update the userData object
     const handleInputChange = (e) => {
@@ -37,7 +39,10 @@ function Signup() {
 
         fetch("/signup", config)
             .then(resp => resp.json())
-            .then(user => console.log(user))
+            .then(user => {
+              navigate("/")
+              console.log(user)
+            })
             .catch(err => console.log(err))
     }
 
