@@ -12,20 +12,23 @@ import {
   MDBBadge,
 } from "mdb-react-ui-kit";
 
-function NavBar() {
+function NavBar({ setUser }) {
   const [showNavRight, setShowNavRight] = useState(false);
 
   const handleLogoutClick = () => {
     const config = {
       method: "DELETE",
     };
-    fetch("/logout", config).then((resp) => console.log(resp));
+    fetch("/logout", config).then((resp) => {
+      setUser({ email: "" });
+      console.log(resp);
+    });
   };
 
   return (
     <MDBNavbar sticky expand="lg" light bgColor="light">
       <MDBContainer fluid>
-        <MDBNavbarBrand href="/">Coffee</MDBNavbarBrand>
+        <MDBNavbarBrand href="/">Coffee Shop</MDBNavbarBrand>
         <MDBNavbarToggler
           type="button"
           data-target="#navbarRightAlignExample"
@@ -43,7 +46,7 @@ function NavBar() {
             </MDBNavbarLink>
             <MDBNavbarLink href="#">Products</MDBNavbarLink>
             <MDBNavbarLink href="/signup">Signup</MDBNavbarLink>
-            <MDBNavbarLink href="#">Login</MDBNavbarLink>
+            <MDBNavbarLink href="/login">Login</MDBNavbarLink>
             <MDBNavbarLink href="#" onClick={handleLogoutClick}>
               Logout
             </MDBNavbarLink>
