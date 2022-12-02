@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   MDBBtn,
   MDBContainer,
@@ -10,7 +11,41 @@ import {
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 
-function Login() {
+function Login({ setUser }) {
+  const [loginCredentials, setLoginCredentials] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+
+  // update the userData object
+  const handleInputChange = (e) => {
+    const stateCopy = { ...loginCredentials };
+    stateCopy[e.target.name] = e.target.value;
+    setLoginCredentials(stateCopy);
+  };
+
+  // submit the form data
+  const handleLoginClick = () => {
+    const config = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(loginCredentials),
+    };
+    fetch("/login", config)
+      .then((resp) => resp.json())
+      .then((user) => {
+        setLoginCredentials({
+          email: "",
+          password: "",
+        });
+        // navigate("/");
+        console.log(user);
+        setUser(user);
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <MDBContainer
       fluid
@@ -36,15 +71,21 @@ function Login() {
                 wrapperClass="mb-4 w-100"
                 label="Your Email"
                 id="formControlLg"
-                type="email"
                 size="lg"
+                type="email"
+                value={loginCredentials.email}
+                name="email"
+                onChange={handleInputChange}
               />
               <MDBInput
                 wrapperClass="mb-4 w-100"
                 label="Password"
                 id="formControlLg2"
-                type="password"
                 size="lg"
+                type="password"
+                value={loginCredentials.password}
+                name="password"
+                onChange={handleInputChange}
               />
 
               <div className="d-flex justify-content-between mb-4">
@@ -57,7 +98,9 @@ function Login() {
                 <a href="!#">Forgot password?</a>
               </div>
 
-              <MDBBtn size="lg mb-4">Login</MDBBtn>
+              <MDBBtn size="lg mb-4" onClick={handleLoginClick}>
+                Login
+              </MDBBtn>
               <div className="text-center">
                 <p>
                   Not a member? <a href="/signup">Register</a>
