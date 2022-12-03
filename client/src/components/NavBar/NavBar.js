@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   MDBContainer,
   MDBNavbar,
@@ -28,7 +29,9 @@ function NavBar({ setUser }) {
   return (
     <MDBNavbar sticky expand="lg" light bgColor="light">
       <MDBContainer fluid>
-        <MDBNavbarBrand href="/">Coffee Shop</MDBNavbarBrand>
+        <Link to="/" className="nav-link">
+          Coffee Shop
+        </Link>
         <MDBNavbarToggler
           type="button"
           data-target="#navbarRightAlignExample"
@@ -41,15 +44,21 @@ function NavBar({ setUser }) {
         </MDBNavbarToggler>
         <MDBCollapse navbar show={showNavRight}>
           <MDBNavbarNav right fullWidth={false} className="mb-2 mb-lg-0">
-            <MDBNavbarLink active aria-current="page" href="#">
+            <Link to="/" className="nav-link" aria-current="page">
               Home
-            </MDBNavbarLink>
-            <MDBNavbarLink href="#">Products</MDBNavbarLink>
-            <MDBNavbarLink href="/signup">Signup</MDBNavbarLink>
-            <MDBNavbarLink href="/login">Login</MDBNavbarLink>
-            <MDBNavbarLink href="#" onClick={handleLogoutClick}>
+            </Link>
+            <Link to="/testing" className="nav-link">
+              Products
+            </Link>
+            <Link to="/signup" className="nav-link">
+              Signup
+            </Link>
+            <Link to="/login" className="nav-link">
+              Login
+            </Link>
+            <Link to="/logout" className="nav-link" onClick={handleLogoutClick}>
               Logout
-            </MDBNavbarLink>
+            </Link>
             <MDBNavbarLink href="#">
               <MDBBadge notification pill color="info">
                 1
