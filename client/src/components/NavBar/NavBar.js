@@ -13,7 +13,7 @@ import {
   MDBBadge,
 } from "mdb-react-ui-kit";
 
-function NavBar({ setUser }) {
+function NavBar({ setUser, isLoggedIn, setIsLoggedIn }) {
   const [showNavRight, setShowNavRight] = useState(false);
 
   const handleLogoutClick = () => {
@@ -22,8 +22,14 @@ function NavBar({ setUser }) {
     };
     fetch("/logout", config).then((resp) => {
       setUser({ email: "" });
+      setIsLoggedIn(false);
       console.log(resp);
     });
+  };
+
+  // conditionally render when logged in or logged out
+  const toggleLogin = () => {
+    setIsLoggedIn(!!isLoggedIn);
   };
 
   return (
@@ -53,12 +59,19 @@ function NavBar({ setUser }) {
             <Link to="/signup" className="nav-link">
               Signup
             </Link>
-            <Link to="/login" className="nav-link">
-              Login
-            </Link>
-            <Link to="/logout" className="nav-link" onClick={handleLogoutClick}>
-              Logout
-            </Link>
+
+            <div onClick={toggleLogin}>
+              {isLoggedIn ? (
+                <Link to="/" className="nav-link" onClick={handleLogoutClick}>
+                  Logout
+                </Link>
+              ) : (
+                <Link to="/login" className="nav-link">
+                  Login
+                </Link>
+              )}
+            </div>
+
             <MDBNavbarLink href="#">
               <MDBBadge notification pill color="info">
                 1
