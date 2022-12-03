@@ -11,7 +11,7 @@ import {
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 
-function Login({ setUser, errors, setErrors }) {
+function Login({ setUser, errors, setErrors, setIsLoggedIn }) {
   const [loginCredentials, setLoginCredentials] = useState({
     email: "",
     password: "",
@@ -40,6 +40,7 @@ function Login({ setUser, errors, setErrors }) {
       if (resp.ok) {
         return resp.json().then((user) => {
           setUser(user);
+          setIsLoggedIn(true);
           navigate("/");
         });
       } else {
