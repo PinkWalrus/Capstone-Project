@@ -7,8 +7,10 @@ import Login from "./components/Login/Login";
 
 function App() {
   const [user, setUser] = useState({
-    first_name: "",
+    email: "",
   });
+
+  const [errors, setErrors] = useState([]);
 
   return (
     <BrowserRouter>
@@ -16,7 +18,12 @@ function App() {
         <NavBar setUser={setUser} />
         <Routes>
           <Route path="/signup" element={<Signup setUser={setUser} />} />
-          <Route path="/login" element={<Login setUser={setUser} />} />
+          <Route
+            path="/login"
+            element={
+              <Login setUser={setUser} errors={errors} setErrors={setErrors} />
+            }
+          />
           <Route path="/testing" element={<h1>Test Route</h1>} />
           <Route path="/" element={<Home user={user} />} />
         </Routes>
