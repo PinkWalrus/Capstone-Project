@@ -11,7 +11,7 @@ import {
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 
-function Login({ setUser }) {
+function Login({ setUser, errors, setErrors }) {
   const [loginCredentials, setLoginCredentials] = useState({
     email: "",
     password: "",
@@ -32,18 +32,20 @@ function Login({ setUser }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginCredentials),
     };
-    fetch("/login", config)
-      .then((resp) => resp.json())
-      .then((user) => {
-        setLoginCredentials({
-          email: "",
-          password: "",
+    fetch("/login", config).then((resp) => {
+      setLoginCredentials({
+        email: "",
+        password: "",
+      });
+      if (resp.ok) {
+        return resp.json().then((user) => {
+          setUser(user);
+          navigate("/");
         });
-        // navigate("/");
-        console.log(user);
-        setUser(user);
-      })
-      .catch((err) => console.log(err));
+      } else {
+        resp.json().then(({ errors }) => setErrors(errors));
+      }
+    });
   };
 
   return (
@@ -66,6 +68,12 @@ function Login({ setUser }) {
               <p className="text-black-50 mb-3">
                 Please enter your email and password!
               </p>
+
+              <div className="text-center mb-3">
+                {errors.map((err) => {
+                  return <div style={{ color: "red" }}>{err}</div>;
+                })}
+              </div>
 
               <MDBInput
                 wrapperClass="mb-4 w-100"
