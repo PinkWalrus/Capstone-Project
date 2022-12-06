@@ -9,7 +9,7 @@ import {
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 
-function Signup({ setUser }) {
+function Signup({ setUser, errors, setErrors, setIsLoggedIn }) {
   const [userData, setUserData] = useState({
     first_name: "",
     email: "",
@@ -32,15 +32,25 @@ function Signup({ setUser }) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
     };
-
-    fetch("/signup", config)
-      .then((resp) => resp.json())
-      .then((user) => {
-        navigate("/");
-        console.log(user);
-        setUser(user);
-      })
-      .catch((err) => console.log(err));
+    fetch("/signup", config).then((resp) => {
+      if (resp.ok) {
+        return resp.json().then((user) => {
+          console.log(user);
+          setUser(user);
+          setIsLoggedIn(true);
+          navigate("/");
+        });
+      } else {
+        resp.json().then(({ errors }) => setErrors([errors]));
+        setUserData({
+          first_name: "",
+          email: "",
+          password: "",
+          password_confirmation: "",
+        });
+        console.log(errors);
+      }
+    });
   };
 
   return (
@@ -59,6 +69,13 @@ function Signup({ setUser }) {
       >
         <MDBCardBody className="p-5 w-100 d-flex flex-column">
           <h2 className="fw-bold mb-3 text-center">Create an Account</h2>
+
+          <div className="text-center mb-3">
+            {errors.map((err) => {
+              return <div style={{ color: "red" }}>{err}</div>;
+            })}
+          </div>
+
           <MDBInput
             wrapperClass="mb-4"
             label="Your Name"
