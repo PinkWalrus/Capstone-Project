@@ -53,7 +53,7 @@ function NavBar({ setUser, isLoggedIn, setIsLoggedIn }) {
             <Link to="/" className="nav-link" aria-current="page">
               Home
             </Link>
-            <Link to="/testing" className="nav-link">
+            <Link to="/products" className="nav-link">
               Products
             </Link>
             <Link to="/signup" className="nav-link">

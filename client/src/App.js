@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
 import Signup from "./components/Auth/Signup/Signup";
 import Login from "./components/Auth/Login/Login";
+import ProductList from "./components/ProductList/ProductList";
 
 function App() {
   const [user, setUser] = useState({
@@ -34,6 +35,7 @@ function App() {
           setIsLoggedIn={setIsLoggedIn}
         />
         <Routes>
+          <Route path="/" element={<Home user={user} />} />
           <Route
             path="/signup"
             element={
@@ -57,8 +59,7 @@ function App() {
               />
             }
           />
-          <Route path="/testing" element={<h1>Test Route</h1>} />
-          <Route path="/" element={<Home user={user} />} />
+          <Route path="/products" element={<ProductList />} />
         </Routes>
       </div>
     </BrowserRouter>
