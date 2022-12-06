@@ -44,7 +44,8 @@ function Login({ setUser, errors, setErrors, setIsLoggedIn }) {
           navigate("/");
         });
       } else {
-        resp.json().then(({ errors }) => setErrors(errors));
+        resp.json().then(({ errors }) => setErrors([errors]));
+        console.log(errors);
       }
     });
   };

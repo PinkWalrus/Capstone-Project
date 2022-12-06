@@ -1,18 +1,29 @@
-import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./components/Home/Home";
-import Signup from "./components/Auth/Signup";
-import Login from "./components/Login/Login";
+import Signup from "./components/Auth/Signup/Signup";
+import Login from "./components/Auth/Login/Login";
 
 function App() {
   const [user, setUser] = useState({
     email: "",
   });
-
   const [errors, setErrors] = useState([]);
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    fetch("/me").then((resp) => {
+      if (resp.ok) {
+        resp.json().then((user) => {
+          setUser(user);
+          setIsLoggedIn(true);
+        });
+      } else {
+        resp.json().then(({ errors }) => setErrors([errors]));
+      }
+    });
+  }, []);
 
   return (
     <BrowserRouter>
@@ -23,7 +34,17 @@ function App() {
           setIsLoggedIn={setIsLoggedIn}
         />
         <Routes>
-          <Route path="/signup" element={<Signup setUser={setUser} />} />
+          <Route
+            path="/signup"
+            element={
+              <Signup
+                setUser={setUser}
+                errors={errors}
+                setErrors={setErrors}
+                setIsLoggedIn={setIsLoggedIn}
+              />
+            }
+          />
           <Route
             path="/login"
             element={
