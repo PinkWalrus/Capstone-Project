@@ -49,15 +49,15 @@
 # end
 
 
-puts "🌱 Seeding users..."
+puts "🌱 Seeding..."
+
+# USERS
 
 u1 = User.create(email: "user1@aol.com", password: "pass1", first_name: "email1@aol.com", first_name: "John", last_name: "Smith", address_line1: "123 Test Pl", address_line2: "Apt A", city: "Sarasota", state: "FL", zipcode: "34243", phone_number: "72711111111")
 
 u2 = User.create(email: "user2@aol.com", password: "pass2", first_name: "email2@aol.com", first_name: "Jane", last_name: "Doe", address_line1: "456 Another Test Dr", address_line2: "Unit 2", city: "Tampa", state: "FL", zipcode: "33592", phone_number: "7272222222")
 
-puts "🌱 Done seeding users..."
-
-puts "🌱 Seeding products..."
+# PRODUCTS
 
 p1 = Product.create(name: "Holiday Blend", category: "Dark Roast", description: "A fitting blend for the most festive time of year—candied orange, velvety chocolate, and baking spice come together in a coffee heavy on holiday cheer.", price: 22.95, product_image: "https://ik.imagekit.io/pinkwalrus/tr:w-300,h-300/Coffee2_sjVW1tWrD.jpeg", quantity_in_stock: 20)
 
@@ -88,5 +88,21 @@ p13 = Product.create(name: "Big Bang", category: "Medium Roast", description: "O
 p14 = Product.create(name: "Brazil", category: "Medium Roast", description: "Taste the unctuous, body-driven, luscious result of coffee cherries naturally processed and sweetened by the Brazilian sun.", price: 17.95, product_image: "https://ik.imagekit.io/pinkwalrus/tr:w-300,h-300/Coffee2_sjVW1tWrD.jpeg", quantity_in_stock: 24)
 
 p15 = Product.create(name: "Guatemala San Sebastian", category: "Dark Roast", description: "Savor a coffee both potent and refined from the best farm in Antigua, a favorite of our Roastmasters for more than 40 years.", price: 20.95, product_image: "https://ik.imagekit.io/pinkwalrus/tr:w-300,h-300/Coffee2_sjVW1tWrD.jpeg", quantity_in_stock: 26)
+
+
+# CART
+
+c1 = Cart.create(quantity: 4, cart_total: 20, user:u1)
+c2 = Cart.create(quantity: 6, user:u2)
+
+# INVOICE
+
+i1 = Invoice.create(order_date: "Fri, 09 Dec 2022", order_total: 25.20, user:u1, cart:c1)
+i2 = Invoice.create(order_date: "Sun, 11 Dec 2022", order_total: 36.00, user:u2, cart:c2)
+
+# PRODUCT_CART
+
+pc1 = ProductCart.create(product:p1, cart:c1)
+pc2 = ProductCart.create(product:p2, cart:c2)
 
 puts "✅ Done seeding!"

@@ -7,8 +7,17 @@ class SessionsController < ApplicationController
         if user&.authenticate(params[:password])
             # set the session[:user_id] to the found and authorized user
             session[:user_id] = user.id
+            if user.cart 
+                session[:current_cart_id] = user.cart.id
+            else
+                cart = Cart.create
+                user.cart = cart
+                # binding.pry
+                session[:current_cart_id] = user.cart.id
+            end
             # render user with status ok
             render json: user, status: :ok
+            # render json: {user, cart: session[:current_cart_id]}, status: :ok
         else
             render json: { errors: ["Invalid email or password"] }, status: :unauthorized
         end
@@ -17,7 +26,10 @@ class SessionsController < ApplicationController
     # /logout
     def destroy
         session.delete :user_id
-        head :no_content
+        session.delete :current_cart_id
+        cart = Cart.create
+        session[:current_cart_id] = cart.id
+        render json: {cart: session[:current_cart_id]} 
     end
 
 end

@@ -39,12 +39,16 @@ function Login({ setUser, errors, setErrors, setIsLoggedIn }) {
       });
       if (resp.ok) {
         return resp.json().then((user) => {
+          console.log(user);
           setUser(user);
           setIsLoggedIn(true);
           navigate("/");
         });
       } else {
-        resp.json().then(({ errors }) => setErrors([errors]));
+        resp.json().then(({ errors }) => {
+          setErrors([errors]);
+          setTimeout(() => setErrors([]), 5000);
+        });
         console.log(errors);
       }
     });
