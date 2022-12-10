@@ -1,8 +1,14 @@
 .product-list-grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  row-gap: 1%;
+  justify-items: center;
+}
+/* .product-list-grid-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   margin: 0 auto;
   width: 90%;
   overflow: hidden;
-}
+} */
