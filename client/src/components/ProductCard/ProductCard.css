@@ -1,4 +1,16 @@
 .product-card-container {
+  width: 85%;
+  min-width: 150px;
+  padding: 5%;
+  color: white;
+  text-align: center;
+}
+
+.product-card-container img {
+  width: 100%;
+}
+
+.product-card-container {
   flex: 1;
   margin: 5px;
   min-width: 280px;
@@ -11,7 +23,7 @@
 }
 
 .product-card-info {
-  /* opacity: 0; */
+  opacity: 0;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -30,13 +42,13 @@
 
 .product-card-info:hover {
   opacity: 1;
-  background-color: rgba(355, 355, 355, 0.8);
+  background-color: rgba(355, 355, 355, 0.9);
 }
 
 .product-card-title {
   color: red;
   font-weight: 700;
-  padding: 0em 3em;
+  padding: 0em 1em;
   text-align: center;
 }
 
