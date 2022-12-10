@@ -41,7 +41,10 @@ function Signup({ setUser, errors, setErrors, setIsLoggedIn }) {
           navigate("/");
         });
       } else {
-        resp.json().then(({ errors }) => setErrors([errors]));
+        resp.json().then(({ errors }) => {
+          setErrors([errors]);
+          setTimeout(() => setErrors([]), 5000);
+        });
         setUserData({
           first_name: "",
           email: "",
