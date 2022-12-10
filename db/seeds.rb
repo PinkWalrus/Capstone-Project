@@ -53,9 +53,9 @@ puts "🌱 Seeding..."
 
 # USERS
 
-u1 = User.create(email: "user1@aol.com", password: "pass1", first_name: "email1@aol.com", first_name: "John", last_name: "Smith", address_line1: "123 Test Pl", address_line2: "Apt A", city: "Sarasota", state: "FL", zipcode: "34243", phone_number: "72711111111")
+u1 = User.create(email: "user1@aol.com", password: "pass1", first_name: "John", last_name: "Smith", address_line1: "123 Test Pl", address_line2: "Apt A", city: "Sarasota", state: "FL", zipcode: "34243", phone_number: "72711111111")
 
-u2 = User.create(email: "user2@aol.com", password: "pass2", first_name: "email2@aol.com", first_name: "Jane", last_name: "Doe", address_line1: "456 Another Test Dr", address_line2: "Unit 2", city: "Tampa", state: "FL", zipcode: "33592", phone_number: "7272222222")
+u2 = User.create(email: "user2@aol.com", password: "pass2", first_name: "Jane", last_name: "Doe", address_line1: "456 Another Test Dr", address_line2: "Unit 2", city: "Tampa", state: "FL", zipcode: "33592", phone_number: "7272222222")
 
 # PRODUCTS
 
