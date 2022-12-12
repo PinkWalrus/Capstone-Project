@@ -1,12 +1,14 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../context/UserProvider";
 import Banner from "../../components/Banner/Banner";
 import Footer from "../../components/Footer/Footer";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
-function Home({ user, products, setProducts }) {
+function Home({ products, setProducts, addToCartClick }) {
   const [count, setCount] = useState(0);
+
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     fetch("/hello")
@@ -28,6 +30,7 @@ function Home({ user, products, setProducts }) {
               key={product.id}
               product={product}
               setProducts={setProducts}
+              addToCartClick={addToCartClick}
             />
           );
         })}

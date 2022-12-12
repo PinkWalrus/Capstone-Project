@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from "../../context/UserProvider";
 import "./NavBar.css";
 import {
   MDBContainer,
@@ -14,26 +15,10 @@ import {
   MDBBadge,
 } from "mdb-react-ui-kit";
 
-function NavBar({ setUser, isLoggedIn, setIsLoggedIn }) {
+function NavBar() {
   const [showNavRight, setShowNavRight] = useState(false);
 
-  const handleLogoutClick = () => {
-    const config = {
-      method: "DELETE",
-    };
-    fetch("/logout", config)
-      .then((resp) => resp.json())
-      .then((data) => {
-        setUser(data);
-        setIsLoggedIn(false);
-        // console.log(resp);
-      });
-  };
-
-  // conditionally render when logged in or logged out
-  // const toggleLogin = () => {
-  //   setIsLoggedIn(!!isLoggedIn);
-  // };
+  const { isLoggedIn, handleLogoutClick } = useContext(UserContext);
 
   return (
     <MDBNavbar sticky expand="lg" light bgColor="light">

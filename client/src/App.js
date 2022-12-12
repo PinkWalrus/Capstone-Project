@@ -1,11 +1,6 @@
-import { useState, useEffect } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  useParams,
-  useNavigate,
-} from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Routes, Route, useParams, useNavigate } from "react-router-dom";
+import { UserContext } from "./context/UserProvider";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./pages/Home/Home";
 import Signup from "./components/Auth/Signup/Signup";
@@ -17,16 +12,15 @@ import Cart from "./pages/Cart/Cart";
 import Invoices from "./pages/Invoices/Invoices";
 
 function App() {
-  const [user, setUser] = useState({
-    email: "",
-  });
-  const [errors, setErrors] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [products, setProducts] = useState([]);
   const [carts, setCarts] = useState([]);
   let { id } = useParams();
 
+  const { user, setUser, errors, setErrors } = useContext(UserContext);
+
   // const navigate = useNavigate();
+
+  console.log(user);
 
   useEffect(() => {
     fetch("/products")
@@ -48,75 +42,65 @@ function App() {
       });
   }, []);
 
-  useEffect(() => {
-    fetch("/me").then((resp) => {
+  function addProduct(newProduct) {
+    console.log(newProduct);
+    setProducts([...products, newProduct]);
+  }
+
+  const addToCartClick = () => {
+    const productData = {
+      name: "",
+      description: "",
+      product_image: "",
+      price: "",
+      quantity_in_stock: "",
+      category: "",
+    };
+    const config = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productData),
+    };
+    fetch("/carts", config).then((resp) => {
       if (resp.ok) {
-        resp.json().then((user) => {
-          console.log(user);
-          if (Object.keys(user)[0] !== "cart") {
-            setIsLoggedIn(true);
-          }
-          setUser(user);
-          // console.log(user.cart.products);
+        return resp.json().then((carts) => {
+          console.log(carts);
+          addProduct(carts);
         });
       } else {
-        resp.json().then(({ errors }) => setErrors([errors]));
+        resp.json().then(({ errors }) => {
+          setErrors([errors]);
+        });
+        console.log(errors);
       }
     });
-  }, []);
+  };
 
   // debugger;
 
   return (
-    <BrowserRouter>
-      <div className="App">
-        <NavBar
-          setUser={setUser}
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
+    <div className="App">
+      <NavBar />
+      <Routes>
+        <Route
+          path="/"
+          element={<Home products={products} addToCartClick={addToCartClick} />}
         />
-        <Routes>
-          <Route path="/" element={<Home user={user} products={products} />} />
-          <Route
-            path="/signup"
-            element={
-              <Signup
-                setUser={setUser}
-                errors={errors}
-                setErrors={setErrors}
-                setIsLoggedIn={setIsLoggedIn}
-              />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Login
-                setUser={setUser}
-                errors={errors}
-                setErrors={setErrors}
-                isLoggedIn={isLoggedIn}
-                setIsLoggedIn={setIsLoggedIn}
-              />
-            }
-          />
-          <Route
-            path="/products"
-            element={<ProductList products={products} />}
-          />
-          <Route
-            path="/account"
-            element={<Account user={user} setUser={setUser} />}
-          />
-          <Route path="/products/:id" element={<ProductModal />} />
-          <Route path="/invoices" element={<Invoices />} />
-          <Route
-            path="/cart"
-            element={<Cart user={user} products={products} carts={carts} />}
-          />
-        </Routes>
-      </div>
-    </BrowserRouter>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/products" element={<ProductList products={products} />} />
+        <Route
+          path="/account"
+          element={<Account user={user} setUser={setUser} />}
+        />
+        <Route path="/products/:id" element={<ProductModal />} />
+        <Route path="/invoices" element={<Invoices />} />
+        <Route
+          path="/cart"
+          element={<Cart user={user} products={products} carts={carts} />}
+        />
+      </Routes>
+    </div>
   );
 }
 

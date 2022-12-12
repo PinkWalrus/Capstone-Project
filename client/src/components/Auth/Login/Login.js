@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { UserContext } from "../../../context/UserProvider";
 import {
   MDBBtn,
   MDBContainer,
@@ -11,48 +11,9 @@ import {
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 
-function Login({ setUser, errors, setErrors, setIsLoggedIn }) {
-  const [loginCredentials, setLoginCredentials] = useState({
-    email: "",
-    password: "",
-  });
-  const navigate = useNavigate();
-
-  // update the userData object
-  const handleInputChange = (e) => {
-    const stateCopy = { ...loginCredentials };
-    stateCopy[e.target.name] = e.target.value;
-    setLoginCredentials(stateCopy);
-  };
-
-  // submit the form data
-  const handleLoginClick = () => {
-    const config = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(loginCredentials),
-    };
-    fetch("/login", config).then((resp) => {
-      setLoginCredentials({
-        email: "",
-        password: "",
-      });
-      if (resp.ok) {
-        return resp.json().then((user) => {
-          console.log(user);
-          setUser(user);
-          setIsLoggedIn(true);
-          navigate("/");
-        });
-      } else {
-        resp.json().then(({ errors }) => {
-          setErrors([errors]);
-          setTimeout(() => setErrors([]), 5000);
-        });
-        console.log(errors);
-      }
-    });
-  };
+function Login() {
+  const { errors, loginCredentials, handleInputChange, handleLoginClick } =
+    useContext(UserContext);
 
   return (
     <MDBContainer
