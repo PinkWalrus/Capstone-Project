@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext } from "react";
+import { UserContext } from "../../../context/UserProvider";
 import {
   MDBBtn,
   MDBContainer,
@@ -9,52 +9,9 @@ import {
   MDBCheckbox,
 } from "mdb-react-ui-kit";
 
-function Signup({ setUser, errors, setErrors, setIsLoggedIn }) {
-  const [userData, setUserData] = useState({
-    first_name: "",
-    email: "",
-    password: "",
-    password_confirmation: "",
-  });
-  const navigate = useNavigate();
-
-  // update the userData object
-  const handleInputChange = (e) => {
-    const stateCopy = { ...userData };
-    stateCopy[e.target.name] = e.target.value;
-    setUserData(stateCopy);
-  };
-
-  // submit the form data
-  const handleFormSubmit = () => {
-    const config = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
-    };
-    fetch("/signup", config).then((resp) => {
-      if (resp.ok) {
-        return resp.json().then((user) => {
-          console.log(user);
-          setUser(user);
-          setIsLoggedIn(true);
-          navigate("/");
-        });
-      } else {
-        resp.json().then(({ errors }) => {
-          setErrors([errors]);
-          setTimeout(() => setErrors([]), 5000);
-        });
-        setUserData({
-          first_name: "",
-          email: "",
-          password: "",
-          password_confirmation: "",
-        });
-        console.log(errors);
-      }
-    });
-  };
+function Signup() {
+  const { errors, userData, handleInputChangeSignUp, handleFormSubmit } =
+    useContext(UserContext);
 
   return (
     <MDBContainer
@@ -87,7 +44,7 @@ function Signup({ setUser, errors, setErrors, setIsLoggedIn }) {
             type="text"
             value={userData.first_name}
             name="first_name"
-            onChange={handleInputChange}
+            onChange={handleInputChangeSignUp}
           />
           <MDBInput
             wrapperClass="mb-4"
@@ -97,7 +54,7 @@ function Signup({ setUser, errors, setErrors, setIsLoggedIn }) {
             type="email"
             value={userData.email}
             name="email"
-            onChange={handleInputChange}
+            onChange={handleInputChangeSignUp}
           />
           <MDBInput
             wrapperClass="mb-4"
@@ -107,7 +64,7 @@ function Signup({ setUser, errors, setErrors, setIsLoggedIn }) {
             type="password"
             value={userData.password}
             name="password"
-            onChange={handleInputChange}
+            onChange={handleInputChangeSignUp}
           />
           <MDBInput
             wrapperClass="mb-4"
@@ -117,7 +74,7 @@ function Signup({ setUser, errors, setErrors, setIsLoggedIn }) {
             type="password"
             value={userData.password_confirmation}
             name="password_confirmation"
-            onChange={handleInputChange}
+            onChange={handleInputChangeSignUp}
           />
           {/* <div className="d-flex flex-row justify-content-center mb-4">
             <MDBCheckbox
