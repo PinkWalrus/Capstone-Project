@@ -5,7 +5,7 @@ import FilterCard from "../FilterCard/FilterCard";
 import FilterCategory from "../FilterCategory/FilterCategory";
 import ProductCard from "../ProductCard/ProductCard";
 
-function Category({ products }) {
+function Category({ products, setCartItems }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   // function onCategoryChange(category) {
@@ -50,7 +50,10 @@ function Category({ products }) {
         selectedCategory={selectedCategory}
         setSelectedCategory={setSelectedCategory}
       />
-      <FilterCard productsToDisplay={productsToDisplay} />
+      <FilterCard
+        productsToDisplay={productsToDisplay}
+        setCartItems={setCartItems}
+      />
     </div>
   );
 }

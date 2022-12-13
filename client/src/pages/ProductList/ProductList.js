@@ -4,7 +4,7 @@ import Footer from "../../components/Footer/Footer";
 // import ProductCard from "../ProductCard/ProductCard";
 import "./ProductList.css";
 
-function ProductList({ products }) {
+function ProductList({ products, setCartItems }) {
   // const [products, setProducts] = useState([]);
 
   // const navigate = useNavigate();
@@ -20,7 +20,7 @@ function ProductList({ products }) {
 
   return (
     <div>
-      <Category products={products} />
+      <Category products={products} setCartItems={setCartItems} />
       {/* <div className="product-list-grid-container">
         {products.map((product) => {
           return (

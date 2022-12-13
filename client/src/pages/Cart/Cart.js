@@ -13,7 +13,9 @@ import {
 } from "mdb-react-ui-kit";
 import Footer from "../../components/Footer/Footer";
 
-function Cart({ carts }) {
+function Cart({ cartItems }) {
+  // const quantity = getItemQuantity(id);
+
   return (
     <div>
       <section className="h-100" style={{ backgroundColor: "#eee" }}>
@@ -26,7 +28,7 @@ function Cart({ carts }) {
                 </MDBTypography>
               </div>
 
-              {carts.map((item) => {
+              {cartItems.map((item) => {
                 // console.log(item);
                 return (
                   <MDBCard key={item.product.id} className="rounded-3 mb-4">
@@ -37,7 +39,7 @@ function Cart({ carts }) {
                             className="rounded-3"
                             fluid
                             src={item.product.product_image}
-                            alt="Cotton T-shirt"
+                            alt={item.product.name}
                           />
                         </MDBCol>
                         <MDBCol md="3" lg="3" xl="3">
@@ -52,7 +54,11 @@ function Cart({ carts }) {
                           className="d-flex align-items-center justify-content-around"
                         >
                           <MDBBtn color="link" className="px-2">
-                            <MDBIcon fas icon="minus" />
+                            <MDBIcon
+                              fas
+                              icon="minus"
+                              // onClick={}
+                            />
                           </MDBBtn>
 
                           <MDBInput
@@ -63,7 +69,11 @@ function Cart({ carts }) {
                           />
 
                           <MDBBtn color="link" className="px-2">
-                            <MDBIcon fas icon="plus" />
+                            <MDBIcon
+                              fas
+                              icon="plus"
+                              // onClick={}
+                            />
                           </MDBBtn>
                         </MDBCol>
                         <MDBCol md="3" lg="2" xl="2" className="offset-lg-1">
@@ -73,7 +83,12 @@ function Cart({ carts }) {
                         </MDBCol>
                         <MDBCol md="1" lg="1" xl="1" className="text-end">
                           <a href="#!" className="text-danger">
-                            <MDBIcon fas icon="trash text-danger" size="lg" />
+                            <MDBIcon
+                              fas
+                              icon="trash text-danger"
+                              size="lg"
+                              // onClick={}
+                            />
                           </a>
                         </MDBCol>
                       </MDBRow>
