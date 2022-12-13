@@ -6,7 +6,9 @@ class CartsController < ApplicationController
      end
 
      def create
-        cart = Cart.create(cart_params)
+        cart = Cart.find_by(id: session[:current_cart_id])
+        product = Product.find(params[:id])
+        cart.products << product
         render json: cart, status: :created
      end
  
