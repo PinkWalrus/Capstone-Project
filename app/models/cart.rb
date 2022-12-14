@@ -3,6 +3,6 @@ class Cart < ApplicationRecord
   
   has_one :invoice
 
-  has_many :product_carts
+  has_many :product_carts, dependent: :destroy
   has_many :products, through: :product_carts
 end

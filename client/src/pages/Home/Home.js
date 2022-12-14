@@ -5,7 +5,7 @@ import Banner from "../../components/Banner/Banner";
 import Footer from "../../components/Footer/Footer";
 import ProductCard from "../../components/ProductCard/ProductCard";
 
-function Home({ products, setProducts, addToCartClick }) {
+function Home({ products, setProducts, addToCartClick, addProduct }) {
   const [count, setCount] = useState(0);
 
   const { user } = useContext(UserContext);
@@ -31,6 +31,7 @@ function Home({ products, setProducts, addToCartClick }) {
               product={product}
               setProducts={setProducts}
               addToCartClick={addToCartClick}
+              addProduct={addProduct}
             />
           );
         })}

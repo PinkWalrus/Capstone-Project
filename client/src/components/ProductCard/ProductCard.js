@@ -1,27 +1,30 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/UserProvider";
 import "./ProductCard.css";
 
-function ProductCard({ product, setCartItems }) {
+function ProductCard({ product, addProduct }) {
+  // const [products, setProducts] = useState([]);
   const { id, name, description, product_image, price } = product;
-  const { products, errors, setErrors } = useContext(UserContext);
+  const { errors, setErrors } = useContext(UserContext);
 
-  useEffect(() => {
-    fetch(`/products/${id}`)
-      .then((resp) => resp.json())
-      .then((data) => {
-        console.log(data);
-        // console.log(data.cart.products[0].quantity);
-        // setCartItems([...data.cart.products]);
-        // debugger;
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch(`/products/${id}`)
+  //     .then((resp) => resp.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setProducts(data);
+  //       // console.log(data.cart.products[0].quantity);
+  //       // setCartItems(data);
+  //       // setCartItems([...data.cart.products]);
+  //       // debugger;
+  //     });
+  // }, []);
 
-  function addProduct(newProduct) {
-    console.log(newProduct);
-    // setCartItems([...products, newProduct]);
-  }
+  // function addProduct(newProduct) {
+  //   console.log(newProduct);
+  //   setCartItems(newProduct);
+  // }
 
   const addToCartClick = () => {
     const productData = product;
@@ -36,7 +39,7 @@ function ProductCard({ product, setCartItems }) {
         return resp.json().then((data) => {
           console.log(data);
           // console.log([...data.cart.products]);
-          // addProduct(data.products);
+          addProduct(data);
           // setProducts(cartItems);
         });
       } else {
@@ -46,7 +49,6 @@ function ProductCard({ product, setCartItems }) {
         console.log(errors);
       }
     });
-    // console.log(product.id);
   };
 
   return (
