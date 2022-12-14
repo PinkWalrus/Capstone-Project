@@ -16,7 +16,7 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   let { id } = useParams();
 
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, errors, setErrors } = useContext(UserContext);
 
   useEffect(() => {
     fetch("/products")
@@ -33,7 +33,8 @@ function App() {
       .then((data) => {
         // console.log([...data.cart.products]);
         // console.log(data.cart.products[0].quantity);
-        setCartItems([...data.cart.products]);
+        // setCartItems([...data.cart.products]);
+        // console.log([...data.cart.products]);
         // debugger;
       });
   }, []);
@@ -49,10 +50,28 @@ function App() {
   //   setCartItems(newProduct);
   // }
 
-  function addProduct(newProduct) {
-    console.log(newProduct);
-    setCartItems((items) => [...items, newProduct]);
-  }
+  const addToCartClick = (product) => {
+    console.log(product);
+    const config = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(product),
+    };
+    fetch(`/carts`, config).then((resp) => {
+      if (resp.ok) {
+        return resp.json().then((data) => {
+          const userCopy = JSON.parse(JSON.stringify(user));
+          userCopy.cart = data;
+          setUser(userCopy);
+        });
+      } else {
+        resp.json().then(({ errors }) => {
+          setErrors([errors]);
+        });
+        console.log(errors);
+      }
+    });
+  };
 
   return (
     <div className="App">
@@ -60,7 +79,13 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Home products={products} addProduct={addProduct} />}
+          element={
+            <Home
+              products={products}
+              // addProduct={addProduct}
+              addToCartClick={addToCartClick}
+            />
+          }
         />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
@@ -70,7 +95,8 @@ function App() {
             <ProductList
               products={products}
               setCartItems={setCartItems}
-              addProduct={addProduct}
+              // addProduct={addProduct}
+              addToCartClick={addToCartClick}
             />
           }
         />
