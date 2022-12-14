@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams } from "react-router-dom";
+import { UserContext } from "../../context/UserProvider";
+
 import {
   MDBBtn,
   MDBCard,
@@ -13,8 +16,73 @@ import {
 } from "mdb-react-ui-kit";
 import Footer from "../../components/Footer/Footer";
 
-function Cart({ cartItems }) {
-  // const quantity = getItemQuantity(id);
+function Cart({ cartItems, setCartItems }) {
+  const { user, errors, setErrors } = useContext(UserContext);
+  const { id } = useParams();
+
+  console.log(user.cart.id);
+
+  // useEffect(() => {
+  //   fetch(`/carts/${user.cart.id}`)
+  //     .then((r) => r.json())
+  //     .then((data) => console.log(data));
+  // }, []);
+
+  const [itemData, setItemData] = useState({
+    type: "DELETE_PRODUCT",
+    payload: {
+      id: user.cart.id,
+      // id: user.cart.products,
+      // name: "",
+      // description: "",
+      // product_image: "",
+      // price: "",
+      // quantity_in_stock: "",
+    },
+  });
+
+  console.log(cartItems);
+
+  const removeFromCartClick = () => {
+    const config = {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(itemData),
+    };
+    fetch(`/carts/${user.cart.id}`, config).then((resp) => {
+      if (resp.ok) {
+        return resp.json().then((data) => {
+          console.log(data);
+          // removeFromCart(data);
+        });
+      } else {
+        resp.json().then(({ errors }) => {
+          setErrors([errors]);
+        });
+        console.log(errors);
+      }
+    });
+  };
+
+  const emptyCart = () => {
+    const config = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    };
+    fetch(`/carts/${user.cart.id}`, config).then((resp) => {
+      if (resp.ok) {
+        return resp.json().then((data) => {
+          console.log(data);
+          // removeFromCart(data);
+        });
+      } else {
+        resp.json().then(({ errors }) => {
+          setErrors([errors]);
+        });
+        console.log(errors);
+      }
+    });
+  };
 
   return (
     <div>
@@ -29,7 +97,7 @@ function Cart({ cartItems }) {
               </div>
 
               {cartItems.map((item) => {
-                // console.log(item);
+                console.log(item);
                 return (
                   <MDBCard key={item.product.id} className="rounded-3 mb-4">
                     <MDBCardBody className="p-4">
@@ -82,12 +150,12 @@ function Cart({ cartItems }) {
                           </MDBTypography>
                         </MDBCol>
                         <MDBCol md="1" lg="1" xl="1" className="text-end">
-                          <a href="#!" className="text-danger">
+                          <a className="text-danger">
                             <MDBIcon
                               fas
                               icon="trash text-danger"
                               size="lg"
-                              // onClick={}
+                              onClick={() => removeFromCartClick()}
                             />
                           </a>
                         </MDBCol>
@@ -96,6 +164,18 @@ function Cart({ cartItems }) {
                   </MDBCard>
                 );
               })}
+              <MDBCard className="mb-4">
+                <MDBCardBody className="p-4">
+                  <MDBBtn
+                    color="danger"
+                    block
+                    size="lg"
+                    onClick={() => emptyCart()}
+                  >
+                    Remove All Items From Cart
+                  </MDBBtn>
+                </MDBCardBody>
+              </MDBCard>
 
               <MDBCard className="mb-4">
                 <MDBCardBody className="p-4 d-flex flex-row">
@@ -103,7 +183,7 @@ function Cart({ cartItems }) {
                 </MDBCardBody>
               </MDBCard>
 
-              <MDBCard>
+              <MDBCard className="mb-4">
                 <MDBCardBody>
                   <MDBBtn color="warning" block size="lg">
                     Checkout
@@ -120,3 +200,9 @@ function Cart({ cartItems }) {
 }
 
 export default Cart;
+
+// function removeFromCart(id) {
+//   setCartItems((currentItems) => {
+//     return currentItems.filter((item) => item.id !== id);
+//   });
+// }
