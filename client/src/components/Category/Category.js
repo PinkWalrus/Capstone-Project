@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import FilterCard from "../FilterCard/FilterCard";
 import FilterCategory from "../FilterCategory/FilterCategory";
 
-function Category({ products, setCartItems, addProduct }) {
+function Category({ products, setCartItems, addProduct, addToCartClick }) {
   const [selectedCategory, setSelectedCategory] = useState("All");
 
   const productsToDisplay = products.filter(
@@ -25,6 +25,7 @@ function Category({ products, setCartItems, addProduct }) {
         productsToDisplay={productsToDisplay}
         setCartItems={setCartItems}
         addProduct={addProduct}
+        addToCartClick={addToCartClick}
       />
     </div>
   );
