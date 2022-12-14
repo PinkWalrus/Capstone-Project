@@ -17,10 +17,10 @@ import {
 import Footer from "../../components/Footer/Footer";
 
 function Cart({ cartItems, setCartItems }) {
-  const { user, errors, setErrors } = useContext(UserContext);
+  const { user, setUser, errors, setErrors } = useContext(UserContext);
   const { id } = useParams();
 
-  console.log(user.cart.id);
+  console.log(user.cart.products);
 
   // useEffect(() => {
   //   fetch(`/carts/${user.cart.id}`)
@@ -31,7 +31,7 @@ function Cart({ cartItems, setCartItems }) {
   const [itemData, setItemData] = useState({
     type: "DELETE_PRODUCT",
     payload: {
-      id: user.cart.id,
+      id: 64,
       // id: user.cart.products,
       // name: "",
       // description: "",
@@ -41,18 +41,19 @@ function Cart({ cartItems, setCartItems }) {
     },
   });
 
-  console.log(cartItems);
+  // console.log(cartItems);
 
-  const removeFromCartClick = () => {
+  const removeFromCartClick = (removeData) => {
     const config = {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(itemData),
+      body: JSON.stringify(removeData),
     };
     fetch(`/carts/${user.cart.id}`, config).then((resp) => {
       if (resp.ok) {
         return resp.json().then((data) => {
           console.log(data);
+          setUser(data);
           // removeFromCart(data);
         });
       } else {
@@ -71,8 +72,9 @@ function Cart({ cartItems, setCartItems }) {
     };
     fetch(`/carts/${user.cart.id}`, config).then((resp) => {
       if (resp.ok) {
-        return resp.json().then((data) => {
+        resp.json().then((data) => {
           console.log(data);
+          setUser(data);
           // removeFromCart(data);
         });
       } else {
@@ -96,7 +98,7 @@ function Cart({ cartItems, setCartItems }) {
                 </MDBTypography>
               </div>
 
-              {cartItems.map((item) => {
+              {user.cart.products.map((item) => {
                 console.log(item);
                 return (
                   <MDBCard key={item.product.id} className="rounded-3 mb-4">
@@ -155,7 +157,14 @@ function Cart({ cartItems, setCartItems }) {
                               fas
                               icon="trash text-danger"
                               size="lg"
-                              onClick={() => removeFromCartClick()}
+                              onClick={() => {
+                                removeFromCartClick({
+                                  type: "DELETE_PRODUCT",
+                                  payload: {
+                                    id: item.product.id,
+                                  },
+                                });
+                              }}
                             />
                           </a>
                         </MDBCol>
