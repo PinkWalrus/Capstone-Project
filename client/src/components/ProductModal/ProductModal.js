@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 
 function ProductModal() {
   const [products, setProducts] = useState([]);
-  //   let params = useParams();
   let { id } = useParams();
 
   useEffect(() => {
@@ -18,7 +17,6 @@ function ProductModal() {
 
   return (
     <div>
-      {/* <Category products={products} /> */}
       <div>
         {products.map((product) => {
           return (
