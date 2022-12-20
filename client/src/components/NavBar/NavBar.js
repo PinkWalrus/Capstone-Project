@@ -18,12 +18,12 @@ import {
 function NavBar() {
   const [showNavRight, setShowNavRight] = useState(false);
 
-  const { isLoggedIn, handleLogoutClick } = useContext(UserContext);
+  const { user, isLoggedIn, handleLogoutClick } = useContext(UserContext);
 
   return (
-    <MDBNavbar sticky expand="lg" light bgColor="light">
+    <MDBNavbar sticky expand="md" bgColor="dark">
       <MDBContainer fluid>
-        <Link to="/" className="nav-link">
+        <Link to="/" className="nav-link nav-bar-link">
           Coffee Shop
         </Link>
         <MDBNavbarToggler
@@ -34,40 +34,96 @@ function NavBar() {
           aria-label="Toggle navigation"
           onClick={() => setShowNavRight(!showNavRight)}
         >
-          <MDBIcon icon="bars" fas />
+          <MDBIcon className="nav-bar-link" icon="bars" fas />
         </MDBNavbarToggler>
         <MDBCollapse navbar show={showNavRight}>
-          <MDBNavbarNav right fullWidth={false} className="mb-2 mb-lg-0">
-            <Link to="/products" className="nav-link">
-              Shop
-            </Link>
-            <Link to="/account" className="nav-link" aria-current="page">
-              My Account
-            </Link>
-            <Link to="/signup" className="nav-link">
-              Signup
-            </Link>
+          <MDBNavbarNav right fullWidth={false} className="mb-lg-0">
+            <div>
+              {isLoggedIn ? (
+                <div className="parent">
+                  <li>
+                    <p className="nav-link nav-bar-link child">
+                      Hi, {user.first_name}!
+                    </p>
+                  </li>
+                  <li>
+                    <Link to="/" className="nav-link nav-bar-link">
+                      Home
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/products" className="nav-link nav-bar-link">
+                      Shop
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/account"
+                      className="nav-link nav-bar-link"
+                      aria-current="page"
+                    >
+                      My Account
+                    </Link>
+                  </li>
+                </div>
+              ) : (
+                <div className="parent">
+                  <Link to="/" className="nav-link nav-bar-link child">
+                    Home
+                  </Link>
+                  <Link to="/products" className="nav-link nav-bar-link">
+                    Shop
+                  </Link>
+                  <Link to="/signup" className="nav-link nav-bar-link child">
+                    Register
+                  </Link>
+                </div>
+              )}
+            </div>
 
             <div>
               {isLoggedIn ? (
-                <Link to="/" className="nav-link" onClick={handleLogoutClick}>
+                <Link
+                  to="/"
+                  className="nav-link nav-bar-link"
+                  onClick={handleLogoutClick}
+                >
                   Logout
                 </Link>
               ) : (
-                <Link to="/login" className="nav-link">
+                <Link to="/login" className="nav-link nav-bar-link">
                   Login
                 </Link>
               )}
             </div>
 
-            <Link to="/cart" className="nav-link">
+            <div>
+              {isLoggedIn ? (
+                <Link to="/cart" className="nav-link">
+                  {/* <MDBBadge notification pill color="info">
+                    1
+                  </MDBBadge> */}
+                  <span>
+                    <MDBIcon fas icon="shopping-cart nav-bar-link"></MDBIcon>
+                  </span>
+                </Link>
+              ) : (
+                <Link to="/login" className="nav-link">
+                  <span>
+                    <MDBIcon fas icon="shopping-cart nav-bar-link"></MDBIcon>
+                  </span>
+                </Link>
+              )}
+            </div>
+
+            {/* <Link to="/cart" className="nav-link">
               <MDBBadge notification pill color="info">
                 1
               </MDBBadge>
               <span>
                 <MDBIcon fas icon="shopping-cart"></MDBIcon>
               </span>
-            </Link>
+            </Link> */}
           </MDBNavbarNav>
         </MDBCollapse>
       </MDBContainer>

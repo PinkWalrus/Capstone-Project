@@ -1,0 +1,86 @@
+.btn-submit {
+  color: white;
+  background-color: #312d2d;
+  border-radius: 0;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0.6em 2em;
+  box-shadow: none;
+  margin-top: 1em;
+}
+
+.btn-submit:hover {
+  color: #312d2d;
+  background-color: #fbb03b;
+  box-shadow: none;
+  transition: all 0.4s;
+}
+
+label.form-label {
+  font-size: 0.9em;
+  margin-bottom: 0.7em;
+}
+
+input#formGridEmail {
+  border: 1px solid #4f4f4f;
+  border-radius: 0.25rem;
+  line-height: 2.15;
+}
+
+input#formGridPassword {
+  border: 1px solid #4f4f4f;
+  border-radius: 0.25rem;
+  line-height: 2.15;
+}
+
+input#formGridFirstName {
+  border: 1px solid #4f4f4f;
+  border-radius: 0.25rem;
+  line-height: 2.15;
+}
+
+input#formGridLastName {
+  border: 1px solid #4f4f4f;
+  border-radius: 0.25rem;
+  line-height: 2.15;
+}
+
+input#formGridPhoneNumber {
+  border: 1px solid #4f4f4f;
+  border-radius: 0.25rem;
+  line-height: 2.15;
+}
+
+input#formGridAddress1 {
+  border: 1px solid #4f4f4f;
+  border-radius: 0.25rem;
+  line-height: 2.15;
+}
+
+input#formGridAddress2 {
+  border: 1px solid #4f4f4f;
+  border-radius: 0.25rem;
+  line-height: 2.15;
+}
+
+input#formGridCity {
+  border: 1px solid #4f4f4f;
+  border-radius: 0.25rem;
+  line-height: 2.15;
+}
+
+input#formGridState {
+  border: 1px solid #4f4f4f;
+  border-radius: 0.25rem;
+  line-height: 2.15;
+}
+
+input#formGridZip {
+  border: 1px solid #4f4f4f;
+  border-radius: 0.25rem;
+  line-height: 2.15;
+}
+
+/* border: 2px solid black;  
+  border-radius: 0px;
+  height: 3em; */

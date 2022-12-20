@@ -12,12 +12,9 @@ class SessionsController < ApplicationController
             else
                 cart = Cart.create
                 user.cart = cart
-                # binding.pry
                 session[:current_cart_id] = user.cart.id
             end
-            # render user with status ok
             render json: user, status: :ok
-            # render json: {user, cart: session[:current_cart_id]}, status: :ok
         else
             render json: { errors: ["Invalid email or password"] }, status: :unauthorized
         end

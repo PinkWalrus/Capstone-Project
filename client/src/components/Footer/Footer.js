@@ -1,16 +1,10 @@
 import React from "react";
-import {
-  MDBFooter,
-  MDBContainer,
-  MDBCol,
-  MDBRow,
-  MDBIcon,
-  MDBBtn,
-} from "mdb-react-ui-kit";
+import { MDBFooter, MDBContainer, MDBIcon, MDBBtn } from "mdb-react-ui-kit";
+import "./Footer.css";
 
 function Footer() {
   return (
-    <MDBFooter className="bg-dark text-center text-white">
+    <MDBFooter className="bg-dark text-center text-white footer-el">
       <div
         className="text-center p-3"
         style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}

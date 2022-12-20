@@ -34,7 +34,6 @@ const UserProvider = ({ children }) => {
             setIsLoggedIn(true);
           }
           setUser(user);
-          // console.log(user.cart.products);
         });
       } else {
         resp.json().then(({ errors }) => setErrors([errors]));
@@ -63,17 +62,17 @@ const UserProvider = ({ children }) => {
           setUser(user);
           setIsLoggedIn(true);
           navigate("/");
+          setUserData({
+            first_name: "",
+            email: "",
+            password: "",
+            password_confirmation: "",
+          });
         });
       } else {
         resp.json().then(({ errors }) => {
           setErrors([errors]);
           setTimeout(() => setErrors([]), 5000);
-        });
-        setUserData({
-          first_name: "",
-          email: "",
-          password: "",
-          password_confirmation: "",
         });
         console.log(errors);
       }
@@ -125,7 +124,6 @@ const UserProvider = ({ children }) => {
       .then((data) => {
         setUser(data);
         setIsLoggedIn(false);
-        // console.log(resp);
       });
   };
 
