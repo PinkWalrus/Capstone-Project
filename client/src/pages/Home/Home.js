@@ -1,46 +1,52 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../context/UserProvider";
-import Banner from "../../components/Banner/Banner";
+import { Container, Row, Col } from "react-bootstrap";
 import Footer from "../../components/Footer/Footer";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import "./Home.css";
 
 function Home({ products, setProducts, addToCartClick, addProduct }) {
-  const [count, setCount] = useState(0);
-
-  const { user } = useContext(UserContext);
-
   useEffect(() => {
-    fetch("/hello")
-      .then((r) => r.json())
-      .then((data) => setCount(data.count));
+    window.scrollTo(0, 0);
   }, []);
 
-  // debugger;
-
   return (
-    <div>
-      Welcome {user.first_name}!<h1>Page Count: {count}</h1>
-      <Banner />
-      OUR FEATURED PRODUCTS:
-      <div className="product-list-grid-container">
-        {products.slice(2, 5).map((product) => {
-          return (
-            <ProductCard
-              key={product.id}
-              product={product}
-              setProducts={setProducts}
-              addToCartClick={addToCartClick}
-              addProduct={addProduct}
-            />
-          );
-        })}
+    <>
+      <div>
+        <img
+          className="banner-img"
+          src="https://ik.imagekit.io/pinkwalrus/tr:w-1000,h-280/CoffeeShop_banner-01_yBskzU_XU_.png"
+        />
       </div>
-      <Link to={`/products`}>
-        <button>ALL COFFEE</button>
-      </Link>
+      <Container className="mb-4" style={{ maxWidth: 1000 }}>
+        <h1 className="home-title">OUR FEATURED PRODUCTS:</h1>
+        <Row xs={1} md={3} className="g-3">
+          {products.slice(2, 5).map((product) => {
+            return (
+              <ProductCard
+                key={product.id}
+                product={product}
+                setProducts={setProducts}
+                addToCartClick={addToCartClick}
+                addProduct={addProduct}
+              />
+            );
+          })}
+        </Row>
+        <div className="home-container">
+          <Link to={`/products`} className="home-container">
+            <button className="home">ALL COFFEE</button>
+          </Link>
+        </div>
+      </Container>
+      <div className="home-yellow-bg">
+        <h2 className="text-center">NOT A MEMBER?</h2>
+        <Link to={`/signup`}>
+          <button className="home">REGISTER NOW</button>
+        </Link>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 }
 
