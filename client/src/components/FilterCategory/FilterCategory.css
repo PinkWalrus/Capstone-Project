@@ -1,0 +1,20 @@
+ul.filter-category {
+  display: flex;
+  justify-content: center;
+  margin: 1em 0 2em 0;
+}
+
+li.filter-category {
+  list-style: none;
+}
+
+button.filter-category {
+  color: #fff;
+  background-color: #312d2d;
+  border: none;
+  padding: 1em;
+  margin: 2em 1em 0 1em;
+  flex: 1;
+  text-transform: uppercase;
+  font-weight: 700;
+}
