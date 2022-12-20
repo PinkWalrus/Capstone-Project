@@ -1,1 +1,42 @@
+@media (max-width: 768px) {
+  .parent {
+    display: block;
+  }
+}
 
+@media (min-width: 768px) {
+  .parent {
+    display: flex;
+  }
+}
+
+.navbar {
+  padding: 1em 0;
+}
+
+.nav-bar-link {
+  color: #fff;
+}
+
+.nav-link {
+  transition: none;
+  color: white;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: white;
+}
+
+.nav-link:focus {
+  color: white;
+}
+
+p.nav-link.nav-bar-link {
+  margin-bottom: 0;
+  color: #fbb03b;
+}
+
+.child {
+  flex: 1;
+}
