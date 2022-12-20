@@ -17,7 +17,6 @@ class UsersController < ApplicationController
             session[:current_cart_id] = cart.id
             # render user as json with status of created
             render json: user, status: :created
-            # render json: {user: user, cart: session[:current_cart_id]}, status: :created
         else
             # else - render errors with status of unprocessable_entity
             render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
@@ -28,22 +27,14 @@ class UsersController < ApplicationController
     def show
         if session[:user_id]
             user = User.find(session[:user_id])
-            # user.cart=Cart.create
             cart = Cart.find(session[:current_cart_id])
-            # cart = Cart.find(session[:current_cart_id])
-            #     cart=Cart.create
-            #     session[:current_cart_id] = cart.id
-            # end
             render json: user
-            # render json: {user: user, cart: user.cart.id}
         else 
             if !session[:current_cart_id]
                 cart = Cart.create
                 session[:current_cart_id] = cart.id
             end
             render json: {cart: session[:current_cart_id]}
-
-            # render json: {cart: cart.id}
         end
     end
 

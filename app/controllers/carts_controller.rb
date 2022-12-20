@@ -18,27 +18,18 @@ class CartsController < ApplicationController
      end
 
     def update
-        # cart = Cart.find_by(id: params[:id])
         cart = Cart.find_by(id: session[:current_cart_id])
         user = User.find(session[:user_id])
-        # binding.pry
         if params[:type] == "DELETE_PRODUCT"
-            # product = Product.find(params[:payload][:id])
             product_carts = ProductCart.where(product_id: params[:payload][:id], cart_id: session[:current_cart_id])
-            # binding.pry
             product_carts.each {|pc| pc.destroy}
-            # render json: cart, status: :ok
-            # render json
         end
-        # cart.update(cart_params)
         render json: user, status: :ok
     end
 
     def destroy
         cart = Cart.find_by(id: session[:current_cart_id])
         user = User.find(session[:user_id])
-        # binding.pry
-        # cart = Cart.find_by(id: session[:current_cart_id])
         cart.destroy
         new_cart = Cart.create
         user.cart = new_cart
