@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useContext } from "react";
 import { UserContext } from "../../context/UserProvider";
 
 import {
@@ -16,32 +15,12 @@ import {
 } from "mdb-react-ui-kit";
 import Footer from "../../components/Footer/Footer";
 
-function Cart({ cartItems, setCartItems }) {
+function Cart() {
   const { user, setUser, errors, setErrors } = useContext(UserContext);
-  const { id } = useParams();
 
-  console.log(user.cart.products);
-
-  // useEffect(() => {
-  //   fetch(`/carts/${user.cart.id}`)
-  //     .then((r) => r.json())
-  //     .then((data) => console.log(data));
-  // }, []);
-
-  const [itemData, setItemData] = useState({
-    type: "DELETE_PRODUCT",
-    payload: {
-      id: 64,
-      // id: user.cart.products,
-      // name: "",
-      // description: "",
-      // product_image: "",
-      // price: "",
-      // quantity_in_stock: "",
-    },
-  });
-
-  // console.log(cartItems);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const removeFromCartClick = (removeData) => {
     const config = {
@@ -54,7 +33,6 @@ function Cart({ cartItems, setCartItems }) {
         return resp.json().then((data) => {
           console.log(data);
           setUser(data);
-          // removeFromCart(data);
         });
       } else {
         resp.json().then(({ errors }) => {
@@ -75,7 +53,6 @@ function Cart({ cartItems, setCartItems }) {
         resp.json().then((data) => {
           console.log(data);
           setUser(data);
-          // removeFromCart(data);
         });
       } else {
         resp.json().then(({ errors }) => {
@@ -123,28 +100,7 @@ function Cart({ cartItems, setCartItems }) {
                           xl="2"
                           className="d-flex align-items-center justify-content-around"
                         >
-                          <MDBBtn color="link" className="px-2">
-                            <MDBIcon
-                              fas
-                              icon="minus"
-                              // onClick={}
-                            />
-                          </MDBBtn>
-
-                          <MDBInput
-                            min={0}
-                            defaultValue={item.quantity}
-                            type="number"
-                            size="sm"
-                          />
-
-                          <MDBBtn color="link" className="px-2">
-                            <MDBIcon
-                              fas
-                              icon="plus"
-                              // onClick={}
-                            />
-                          </MDBBtn>
+                          {item.quantity}
                         </MDBCol>
                         <MDBCol md="3" lg="2" xl="2" className="offset-lg-1">
                           <MDBTypography tag="h5" className="mb-0">
@@ -209,9 +165,3 @@ function Cart({ cartItems, setCartItems }) {
 }
 
 export default Cart;
-
-// function removeFromCart(id) {
-//   setCartItems((currentItems) => {
-//     return currentItems.filter((item) => item.id !== id);
-//   });
-// }
