@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { UserContext } from "../../../context/UserProvider";
 import {
   MDBBtn,
@@ -16,6 +16,10 @@ import Footer from "../../../components/Footer/Footer";
 function Login() {
   const { errors, loginCredentials, handleInputChange, handleLoginClick } =
     useContext(UserContext);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>
