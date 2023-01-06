@@ -14,6 +14,7 @@ import {
   MDBCollapse,
   MDBBadge,
 } from "mdb-react-ui-kit";
+import Logo from "../../assets/Coffee_Shop_Logo.svg";
 
 function NavBar() {
   const [showNavRight, setShowNavRight] = useState(false);
@@ -22,9 +23,9 @@ function NavBar() {
 
   return (
     <MDBNavbar sticky expand="md" bgColor="dark">
-      <MDBContainer fluid>
-        <Link to="/" className="nav-link nav-bar-link">
-          Coffee Shop
+      <MDBContainer fluid style={{ padding: ".2em 1.2em" }}>
+        <Link to="/" className="nav-bar-link">
+          <img src={Logo} style={{ width: "5em" }} />
         </Link>
         <MDBNavbarToggler
           type="button"

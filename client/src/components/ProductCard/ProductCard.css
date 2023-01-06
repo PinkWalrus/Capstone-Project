@@ -89,3 +89,11 @@ button.product-card-cart:hover {
   background-color: #fbb03b;
   transition: all 0.4s;
 }
+
+button.add-to-cart {
+  color: #fff;
+  background-color: #312d2d;
+  border: none;
+  padding: 0.5em 1em;
+  margin-left: 2em;
+}

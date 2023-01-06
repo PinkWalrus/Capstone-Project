@@ -15,3 +15,7 @@ code {
 .center-text {
   text-align: center;
 }
+
+.coffee-font {
+  letter-spacing: 0.05em;
+}
