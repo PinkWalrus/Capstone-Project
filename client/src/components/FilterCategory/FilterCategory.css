@@ -6,6 +6,7 @@ ul.filter-category {
 
 li.filter-category {
   list-style: none;
+  display: flex;
 }
 
 button.filter-category {
