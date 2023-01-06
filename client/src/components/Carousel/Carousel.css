@@ -1,0 +1,72 @@
+.carousel-main {
+  /* position: relative; */
+  color: white;
+  font-weight: 900;
+  /* text-align: left;
+  width: 50%;
+  padding-left: 1em;
+  padding-top: 1em; */
+}
+
+.carousel-sub {
+  /* position: relative; */
+  color: white;
+}
+
+/* HERO */
+
+.d-md-block {
+  /* width: 100%; */
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+.banner {
+  width: 100%;
+  /* top: 50%; */
+  /* transform: translate(0, -50%); */
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* align-items: center; */
+  /* margin: 2% 5%; */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.banner-content {
+  color: white;
+  width: 55%;
+  margin-top: -0.5em;
+}
+
+.banner-content span {
+  letter-spacing: 3px;
+}
+
+.banner-content h1 {
+  font-size: 4em;
+  font-weight: 600;
+  line-height: 0.95em;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.3em;
+}
+
+.banner-content a {
+  margin: 1em;
+  padding: 0.5em 1em;
+}
+
+.btn-1 {
+  background-color: rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  color: #fff;
+}
+
+.btn-2 {
+  background-color: #312d2d;
+  border: 2px solid #312d2d;
+  color: #fff;
+}
